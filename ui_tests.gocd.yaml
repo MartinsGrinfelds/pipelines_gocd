@@ -6,6 +6,7 @@ pipelines:
     materials:
       testrepo:
         git: https://github.com/MartinsGrinfelds/ci_course.git
+        branch: main
     environment_variables:
       TEST_ENVIRONMENT: dev
     stages:
