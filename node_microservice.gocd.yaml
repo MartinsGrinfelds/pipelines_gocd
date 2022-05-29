@@ -79,7 +79,7 @@ pipelines:
             test:
               artifacts:
                 - build:
-                    source: report_DEV.hmtl
+                    source: report_DEV.html
                     destination: test-output
               tabs:
                 report: test-output/report_DEV.html
@@ -99,7 +99,7 @@ pipelines:
             test:
               artifacts:
                 - build:
-                    source: report_INT.hmtl
+                    source: report_INT.html
                     destination: test-output
               tabs:
                 report: test-output/report_INT.html
@@ -119,7 +119,7 @@ pipelines:
             test:
               artifacts:
                 - build:
-                    source: report_PRD.hmtl
+                    source: report_PRD.html
                     destination: test-output
               tabs:
                 report: test-output/report_PRD.html
