@@ -14,18 +14,22 @@ common:
         arguments:
           -  -c
           -  echo "Running tests on ${ENV_NAME} environment triggered..."
+    - exec:
         command: bash
         arguments:
           -  -c
           -  docker run --network=host -d -t --name api_test_executor_${ENV_NAME} api_test_executor
+    - exec:
         command: bash
         arguments:
           -  -c
           -  docker exec api_test_executor_${ENV_NAME} cucumber --tags=@${ENV_NAME} --format html --out test-output/report.html
+    - exec:
         command: bash
         arguments:
           -  -c
           -  docker cp api_test_executor_${ENV_NAME}:/usr/src/api-tests/test-output/report.html report_${ENV_NAME}.html
+    - exec:
         command: bash
         arguments:
           -  -c
@@ -53,7 +57,7 @@ pipelines:
           environment_variables:
             ENV_NAME: DEV
           jobs:
-            deploy:
+            test:
               tasks:
                 *test-tasks
       - deploy-int:
@@ -67,7 +71,7 @@ pipelines:
           environment_variables:
             ENV_NAME: INT
           jobs:
-            deploy:
+            test:
               tasks:
                 *test-tasks
       - deploy-prd:
@@ -81,6 +85,6 @@ pipelines:
           environment_variables:
             ENV_NAME: PRD
           jobs:
-            deploy:
+            test:
               tasks:
                 *test-tasks
