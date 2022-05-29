@@ -82,7 +82,7 @@ pipelines:
                     source: report_${ENV_NAME}.hmtl
                     destination: test-output
               tabs:
-                report: test-output/report_${ENV_NAME}.html
+                report: test-output/report_DEV.html
               tasks:
                 *test-tasks
       - deploy-int:
@@ -99,10 +99,10 @@ pipelines:
             test:
               artifacts:
                 - build:
-                    source: report_${ENV_NAME}.hmtl
+                    source: report_INT.hmtl
                     destination: test-output
               tabs:
-                report: test-output/report_${ENV_NAME}.html
+                report: test-output/report_INT.html
               tasks:
                 *test-tasks
       - deploy-prd:
@@ -119,9 +119,9 @@ pipelines:
             test:
               artifacts:
                 - build:
-                    source: report_${ENV_NAME}.hmtl
+                    source: report_PRD.hmtl
                     destination: test-output
               tabs:
-                report: test-output/report_${ENV_NAME}.html
+                report: test-output/report_PRD.html
               tasks:
                 *test-tasks
