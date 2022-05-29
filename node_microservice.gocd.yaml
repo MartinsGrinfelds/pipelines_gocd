@@ -79,7 +79,7 @@ pipelines:
             test:
               artifacts:
                 - build:
-                    source: report_${ENV_NAME}.hmtl
+                    source: report_DEV.hmtl
                     destination: test-output
               tabs:
                 report: test-output/report_DEV.html
