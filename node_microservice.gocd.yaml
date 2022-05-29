@@ -25,11 +25,13 @@ common:
           -  -c
           -  docker exec api_test_executor_${ENV_NAME} cucumber --tags=@${ENV_NAME} --format html --out test-output/report.html
     - exec:
+        run_if: any
         command: bash
         arguments:
           -  -c
           -  docker cp api_test_executor_${ENV_NAME}:/usr/src/api-tests/test-output/report.html report_${ENV_NAME}.html
     - exec:
+        run_if: any
         command: bash
         arguments:
           -  -c
@@ -43,9 +45,14 @@ pipelines:
         branch: main
     stages:
       - build:
-            deploy:
+          jobs:
+            build:
               tasks:
-                *deploy-tasks
+              - exec:
+                  command: bash
+                  arguments:
+                    -  -c
+                    -  echo "Building..."
       - deploy-dev:
           environment_variables:
             ENV_NAME: DEV
