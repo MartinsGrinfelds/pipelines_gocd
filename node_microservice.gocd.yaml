@@ -36,6 +36,18 @@ common:
         arguments:
           -  -c
           -  docker rm -f api_test_executor_${ENV_NAME}
+    - exec:
+        run_if: failed
+        command: bash
+        arguments:
+          -  -c
+          -  echo "Something failed."
+    - exec:
+        run_if: failed
+        command: bash
+        arguments:
+          -  -c
+          -  echo "All steps executed successfully."
 pipelines:
   node-microservice:
     group: microservices
