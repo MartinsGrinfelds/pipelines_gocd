@@ -12,7 +12,7 @@ common:
         command: bash
         arguments:
           -  -c
-          -  echo "Deployment on ${ENV_NAME} environment triggered..."
+          -  echo "Running tests on ${ENV_NAME} environment triggered..."
 
 pipelines:
   node-microservice:
@@ -23,14 +23,9 @@ pipelines:
         branch: main
     stages:
       - build:
-          jobs:
-            build:
+            deploy:
               tasks:
-              - exec:
-                  command: bash
-                  arguments:
-                    -  -c
-                    -  echo "Building node application..."
+                *deploy-tasks
       - deploy-dev:
           environment_variables:
             ENV_NAME: DEV
@@ -39,14 +34,12 @@ pipelines:
               tasks:
                 *deploy-tasks
       - test-dev:
+          environment_variables:
+            ENV_NAME: DEV
           jobs:
-            build:
+            deploy:
               tasks:
-              - exec:
-                  command: bash
-                  arguments:
-                    -  -c
-                    -  echo "Running tests on DEV environment triggered..."
+                *test-tasks
       - deploy-int:
           environment_variables:
             ENV_NAME: INT
@@ -55,14 +48,12 @@ pipelines:
               tasks:
                 *deploy-tasks
       - test-int:
+          environment_variables:
+            ENV_NAME: INT
           jobs:
-            build:
+            deploy:
               tasks:
-              - exec:
-                  command: bash
-                  arguments:
-                    -  -c
-                    -  echo "Running tests on INT environment triggered..."
+                *test-tasks
       - deploy-prd:
           environment_variables:
             ENV_NAME: PRD
@@ -71,11 +62,9 @@ pipelines:
               tasks:
                 *deploy-tasks
       - test-prd:
+          environment_variables:
+            ENV_NAME: PRD
           jobs:
-            build:
+            deploy:
               tasks:
-              - exec:
-                  command: bash
-                  arguments:
-                    -  -c
-                    -  echo "Running tests on PRD environment triggered..."
+                *test-tasks
